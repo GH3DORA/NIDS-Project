@@ -2,7 +2,7 @@ from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
-TRAINING_LIMIT=10
+TRAINING_LIMIT=500
 ANOMALY_THRESHOLD=-0.15
 
 models={}
