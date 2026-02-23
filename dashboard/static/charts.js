@@ -54,21 +54,15 @@ function updateCharts(data) {
     if (ipChart) ipChart.destroy();
 
     attackChart = createChart(
-        document.getElementById("attackChart"),
+        document.getElementById("attackChart").getContext("2d"),
         "Attack Types",
         data.attack_counts
     );
 
     severityChart = createChart(
-        document.getElementById("severityChart"),
+        document.getElementById("severityChart").getContext("2d"),
         "Severity Levels",
         data.severity_counts
-    );
-
-    ipChart = createChart(
-        document.getElementById("ipChart"),
-        "Top Source IPs",
-        data.top_sources
     );
 }
 
