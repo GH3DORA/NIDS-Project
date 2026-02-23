@@ -3,7 +3,7 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 TRAINING_LIMIT=500
-ANOMALY_THRESHOLD=-0.15
+ANOMALY_THRESHOLD=-1.1
 
 models={}
 scalers={}
