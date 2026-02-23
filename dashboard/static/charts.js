@@ -1,42 +1,75 @@
+let attackChart, severityChart, ipChart;
+
 async function loadData() {
     const res = await fetch("/api/data");
     const data = await res.json();
 
     document.getElementById("totalAlerts").innerText = data.total_alerts;
 
-    // Build table
+    updateTable(data.recent_alerts);
+    updateCharts(data);
+}
+
+function updateTable(alerts) {
     const tbody = document.querySelector("#alertsTable tbody");
     tbody.innerHTML = "";
 
-    data.recent_alerts.forEach(alert => {
+    alerts.forEach(alert => {
         const row = `
             <tr>
-                <td>${alert.timestamp}</td>
-                <td>${alert.attack_type}</td>
-                <td>${alert.severity}</td>
-                <td>${alert.ip_pair}</td>
-                <td>${alert.protocol}</td>
+                <td>${alert.TIMESTAMP}</td>
+                <td>${alert.ALERT_TYPE}</td>
+                <td>${alert.SEVERITY_LEVEL}</td>
+                <td>${alert.SOURCE_IP}</td>
+                <td>${alert.DESTINATION_IP}</td>
+                <td>${alert.PROTOCOL}</td>
             </tr>
         `;
         tbody.innerHTML += row;
     });
-
-    buildChart(data.attack_counts);
 }
 
-function buildChart(counts) {
-    const ctx = document.getElementById("attackChart");
-
-    new Chart(ctx, {
+function createChart(ctx, label, counts) {
+    return new Chart(ctx, {
         type: "bar",
         data: {
             labels: Object.keys(counts),
             datasets: [{
-                label: "Attack Counts",
+                label: label,
                 data: Object.values(counts)
             }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
         }
     });
+}
+
+function updateCharts(data) {
+    if (attackChart) attackChart.destroy();
+    if (severityChart) severityChart.destroy();
+    if (ipChart) ipChart.destroy();
+
+    attackChart = createChart(
+        document.getElementById("attackChart"),
+        "Attack Types",
+        data.attack_counts
+    );
+
+    severityChart = createChart(
+        document.getElementById("severityChart"),
+        "Severity Levels",
+        data.severity_counts
+    );
+
+    ipChart = createChart(
+        document.getElementById("ipChart"),
+        "Top Source IPs",
+        data.top_sources
+    );
 }
 
 setInterval(loadData, 3000);
