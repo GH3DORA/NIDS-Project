@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Security Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>NIDS Dashboard</h1>
+    <div class="card">
+        <h2>Total alerts</h2>
+        <h3 id="total_alerts">0</h3>
+    </div>
+    <div class="card">
+        <h2>Total alerts</h2>
+        <h3 id="totalAlerts">0</h3>
+    </div>
+    <div class="card">
+        <h2>Attack Distribution</h2>
+        <canvas id="attackChart"></canvas>
+    </div>
+    <div class="card">
+        <h2>Severity Breakdown</h2>
+        <canvas id="severityChard"></canvas>
+    </div>
+    <div class="card">
+        <h2>Top attacking IPs</h2>
+        <canvas id="ipchart"></canvas>
+    </div>
+    <div class="card">
+        <h2>Recent alerts</h2>
+        <table id="alertsTable">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Attack</th>
+                    <th>Severity</th>
+                    <th>IPs</th>
+                    <th>Protocol</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+</html>
