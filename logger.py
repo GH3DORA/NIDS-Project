@@ -1,8 +1,8 @@
 import time
 from scapy.utils import PcapWriter
 from scapy.packet import Packet
-import csv
 import os
+import csv
 import time
 
 severity={
@@ -59,3 +59,12 @@ def log_alert(alert_type, src_ip, dst_ip, protocol, extra_info=""):
             ])
 
         writer.writerow(row)
+
+pcap_writer=PcapWriter(PCAP_FILE,append=True,sync=True)
+def log_packet(packet:Packet):
+    pcap_writer.write(packet)
+
+def printstats():
+    print("========== ATTACK SUMMARIES ==========")
+    for attack,count in attack_stats.items():
+        print(f"{attack} : {count}")
