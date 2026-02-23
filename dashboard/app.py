@@ -11,5 +11,5 @@ def api_data():
     data=get_dashboard_data()
     return jsonify(data)
 
-if __name__=="main":
+if __name__=="__main__":
     app.run(debug=True,port=5000)
